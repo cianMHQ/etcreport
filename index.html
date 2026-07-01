@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Coverage report — etc.</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0F172A;
+    --ink-soft:#64748B;
+    --paper:#F8FAFC;
+    --card:#FFFFFF;
+    --line:#E7EAF0;
+    --navy:#0F172A;
+    --accent:#4F46E5;
+    --accent-deep:#3730A3;
+    --accent-tint:#EEF0FE;
+    --sky:#0EA5E9;
+    --sky-tint:#E4F5FC;
+    --slate:#334155;
+    --slate-tint:#EEF1F5;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{max-width:880px;margin:0 auto;padding:0 32px 80px;}
+  h1,h2,h3{font-family:'Inter',sans-serif;margin:0;}
+
+  /* ---- Header ---- */
+  header{
+    padding:40px 0 32px;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+  }
+  .brandmark{display:flex;align-items:center;gap:10px;}
+  .blob{
+    width:40px;height:40px;
+    background:var(--ink);
+    border-radius:11px;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .blob span{
+    font-family:'Inter',sans-serif;
+    color:#fff;
+    font-weight:700;
+    font-size:15px;
+  }
+  .brand-name{font-family:'Inter',sans-serif;font-weight:700;font-size:20px;color:var(--navy);}
+  .tag{
+    font-size:12px;
+    color:var(--accent-deep);
+    background:var(--accent-tint);
+    padding:5px 14px;
+    border-radius:100px;
+    font-weight:600;
+    white-space:nowrap;
+  }
+
+  /* ---- Hero ---- */
+  .hero{padding:44px 0 8px;}
+  .eyebrow{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+    color:var(--accent-deep);
+    font-weight:700;
+    margin-bottom:14px;
+  }
+  .headline{
+    font-size:28px;
+    line-height:1.3;
+    font-weight:700;
+    letter-spacing:-0.005em;
+    max-width:680px;
+    color:var(--navy);
+  }
+  .meta-row{
+    display:flex;
+    gap:28px;
+    margin-top:20px;
+    font-size:13px;
+    color:var(--ink-soft);
+    flex-wrap:wrap;
+  }
+  .meta-row strong{color:var(--ink);font-weight:600;}
+  .summary{
+    margin-top:24px;
+    padding:18px 22px;
+    background:var(--accent-tint);
+    border-left:3px solid var(--accent-deep);
+    border-radius:0 10px 10px 0;
+    font-size:14.5px;
+    line-height:1.6;
+    color:#1E1B4B;
+  }
+  .summary b{font-family:'Inter',sans-serif;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;display:block;margin-bottom:6px;color:var(--accent-deep);}
+
+  /* ---- Stat strip ---- */
+  .stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    margin:40px 0;
+  }
+  .stat{
+    background:var(--card);
+    border:1px solid var(--line);
+    box-shadow:0 1px 2px rgba(15,23,42,0.04);
+    border-radius:16px;
+    padding:22px 20px;
+  }
+  .stat .num{
+    font-family:'Inter',sans-serif;
+    font-size:32px;
+    font-weight:700;
+    color:var(--navy);
+    letter-spacing:-0.01em;
+    line-height:1;
+  }
+  .stat .label{
+    margin-top:8px;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    font-weight:500;
+  }
+  .stat .sub{
+    margin-top:2px;
+    font-size:11.5px;
+    color:#94A3B8;
+  }
+
+  /* ---- Reach split bar ---- */
+  .reach-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    box-shadow:0 1px 2px rgba(15,23,42,0.04);
+    border-radius:16px;
+    padding:20px 22px;
+    margin:14px 0 40px;
+  }
+  .reach-title{font-size:12.5px;color:var(--ink-soft);font-weight:500;margin-bottom:14px;}
+  .reach-bar{display:flex;height:14px;border-radius:8px;overflow:hidden;}
+  .reach-bar div{height:100%;}
+  .reach-legend{display:flex;gap:22px;margin-top:14px;flex-wrap:wrap;}
+  .reach-legend span{font-size:12.5px;color:var(--ink-soft);display:flex;align-items:center;gap:7px;}
+  .dot{width:9px;height:9px;border-radius:50%;display:inline-block;}
+
+  /* ---- Section heading ---- */
+  .section{margin:56px 0;}
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:20px;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+  .section-head h2{font-size:19px;font-weight:700;color:var(--navy);}
+  .section-head .note{font-size:12.5px;color:var(--ink-soft);}
+
+  /* ---- Coverage cards ---- */
+  .articles{display:flex;flex-direction:column;gap:10px;}
+  .article{
+    background:var(--card);
+    border:1px solid var(--line);
+    box-shadow:0 1px 2px rgba(15,23,42,0.04);
+    border-radius:14px;
+    padding:16px 18px;
+    display:grid;
+    grid-template-columns:28px 1fr auto;
+    align-items:center;
+    gap:14px;
+  }
+  .article .rank{
+    font-family:'Inter',sans-serif;
+    font-size:13px;
+    font-weight:700;
+    color:#fff;
+    background:var(--accent);
+    width:28px;height:28px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .article .title{font-size:14px;font-weight:600;line-height:1.4;}
+  .article .outlet-row{
+    margin-top:4px;
+    font-size:12px;
+    color:var(--ink-soft);
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .article .outlet-row span{display:inline-flex;align-items:center;gap:4px;}
+  .article .metrics{
+    text-align:right;
+    font-size:12px;
+    color:var(--ink-soft);
+    white-space:nowrap;
+  }
+  .reach-tag{
+    display:inline-block;
+    font-size:10.5px;
+    font-weight:600;
+    padding:2px 8px;
+    border-radius:100px;
+  }
+  .reach-tag.national{background:var(--slate-tint);color:var(--slate);}
+  .reach-tag.regional{background:var(--accent-tint);color:var(--accent-deep);}
+  .reach-tag.international{background:var(--sky-tint);color:var(--sky);}
+  .kmp{
+    display:block;
+    margin-top:6px;
+    font-size:10.5px;
+    font-weight:600;
+    color:var(--ink-soft);
+  }
+  .kmp b{color:var(--navy);}
+
+  /* ---- Velocity chart ---- */
+  .chart-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    box-shadow:0 1px 2px rgba(15,23,42,0.04);
+    border-radius:16px;
+    padding:24px 24px 16px;
+  }
+  .chart-wrap{position:relative;height:220px;}
+  .insight{
+    margin-top:14px;
+    padding-top:14px;
+    border-top:1px solid var(--line);
+    font-size:13px;
+    color:var(--ink-soft);
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+  .insight .lead{display:flex;align-items:flex-start;gap:10px;}
+  .insight b{color:var(--navy);font-weight:600;}
+  .insight ul{margin:0;padding-left:30px;}
+  .insight li{margin-bottom:2px;}
+
+  /* ---- Funnel ---- */
+  .funnel{display:flex;flex-direction:column;gap:8px;}
+  .funnel-row{
+    display:grid;
+    grid-template-columns:200px 1fr 90px;
+    align-items:center;
+    gap:14px;
+  }
+  .funnel-label{font-size:13px;font-weight:500;color:var(--ink);}
+  .funnel-track{
+    background:#EEF1F5;
+    border-radius:8px;
+    height:30px;
+    position:relative;
+    overflow:hidden;
+  }
+  .funnel-fill{
+    height:100%;
+    border-radius:8px;
+    background:linear-gradient(90deg,var(--navy),var(--accent));
+  }
+  .funnel-value{font-size:13px;font-weight:600;text-align:right;color:var(--ink);}
+  .funnel-sub{font-size:11px;color:var(--ink-soft);text-align:right;}
+
+  /* ---- Tables ---- */
+  table.lists, table.keywords{width:100%;border-collapse:collapse;font-size:12.5px;}
+  table.lists th, table.keywords th{
+    text-align:left;
+    font-weight:600;
+    color:var(--ink-soft);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    padding:0 10px 10px;
+    border-bottom:1px solid var(--line);
+  }
+  table.lists td, table.keywords td{
+    padding:10px;
+    border-bottom:1px solid #EEF1F5;
+  }
+  table.lists tr:last-child td, table.keywords tr:last-child td{border-bottom:none;}
+  .pill{
+    display:inline-block;
+    background:var(--accent-tint);
+    color:var(--accent-deep);
+    font-weight:600;
+    font-size:11px;
+    padding:1px 8px;
+    border-radius:100px;
+  }
+  .pill.zero{background:var(--slate-tint);color:#94A3B8;}
+  .outside-note{
+    margin-top:16px;
+    font-size:12.5px;
+    color:var(--ink-soft);
+    background:var(--accent-tint);
+    padding:12px 16px;
+    border-radius:10px;
+  }
+  .outside-note b{color:var(--accent-deep);}
+
+  footer{
+    margin-top:60px;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    font-size:11.5px;
+    color:#94A3B8;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+
+  @media (max-width:640px){
+    .stats{grid-template-columns:1fr 1fr;}
+    .funnel-row{grid-template-columns:130px 1fr 70px;}
+    .article{grid-template-columns:24px 1fr;}
+    .article .metrics{grid-column:2;text-align:left;margin-top:6px;}
+    table.lists, table.keywords{font-size:11.5px;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="brandmark">
+      <div class="blob"><span>etc.</span></div>
+      <span class="brand-name">etc.</span>
+    </div>
+    <span class="tag">Coverage report</span>
+  </header>
+
+  <div class="hero">
+    <div class="eyebrow">Press release performance</div>
+    <h1 class="headline">Cork turns yellow and winners of the 2026 Analog Devices Cork City Marathon</h1>
+    <div class="meta-row">
+      <div>Issued <strong>31 May 2026, 14:05</strong></div>
+      <div>Tracking window <strong>7 days</strong></div>
+      <div>Coverage close <strong>4 June 2026</strong></div>
+    </div>
+    <div class="summary">
+      <b>AI summary</b>
+      Race-day coverage was led by Cork regional media, with the marathon results landing across radio, print and online within hours — alongside a parallel emotional story honouring Ellen Cassidy that carried through into national and international pickup over the following days.
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="num">16</div>
+      <div class="label">Pieces of coverage</div>
+      <div class="sub">Regional, national &amp; international</div>
+    </div>
+    <div class="stat">
+      <div class="num">210,662</div>
+      <div class="label">Estimated total viewership</div>
+      <div class="sub">Across 16 articles</div>
+    </div>
+    <div class="stat">
+      <div class="num">28%</div>
+      <div class="label">Of delivered contacts opened</div>
+      <div class="sub">82 of 298 contacts</div>
+    </div>
+  </div>
+
+  <div class="reach-card">
+    <div class="reach-title">Direct coverage reach breakdown</div>
+    <div class="reach-bar">
+      <div style="width:63%;background:var(--accent)"></div>
+      <div style="width:25%;background:var(--navy)"></div>
+      <div style="width:12%;background:var(--sky)"></div>
+    </div>
+    <div class="reach-legend">
+      <span><span class="dot" style="background:var(--accent)"></span>Regional — 63% (10 articles)</span>
+      <span><span class="dot" style="background:var(--navy)"></span>National — 25% (4 articles)</span>
+      <span><span class="dot" style="background:var(--sky)"></span>International — 12% (2 articles)</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <h2>Direct coverage</h2>
+      <div class="note">16 articles, ranked by publishing date</div>
+    </div>
+    <div class="articles">
+
+      <div class="article">
+        <div class="rank">1</div>
+        <div>
+          <div class="title">Analog Devices Cork City Marathon 2026: Over 12,300 cross the finish line in record-breaking day for Cork</div>
+          <div class="outlet-row"><span>Cork Safety Alerts</span><span>·</span><span>31 May</span><span>·</span><span>1,833 article reads</span><span class="reach-tag regional">Regional · Online</span></div>
+        </div>
+        <div class="metrics">
+          ~50K/mo site
+          <span class="kmp">Key message <b>100%</b></span>
+        </div>
+      </div>
+
+      <div class="article">
+        <div class="rank">2</div>
+        <div>
+          <div class="title">Cork turns yellow and winners of the 2026 Analog Devices Cork City Marathon</div>
+          <div class="outlet-row"><span>C103</span><span>·</span><span>31 May</span><span>·</span><span>710 article reads</span><span class="reach-tag regional">Regional · Radio</span></div>
+        </div>
+        <div class="metrics">
+          ~120K/mo site
+          <span class="kmp">Key message <b>100%</b></span>
+        </div>
+      </div>
+
+      <div class="article">
+        <div class="rank">3</div>
+        <div>
+          <div class="title">Cork turns yellow and winners of the 2026 Analog Devices Cork City Marathon</div>
+          <div class="outlet-row"><span>Cork's 96 FM</span><span>·</span><span>31 May</span><span>·</span><span>6,051 article reads</span><span class="reach-tag regional">Regional · Radio</span></div>
+        </div>
+        <div class="metrics">
+          ~100K/mo site
+          <span class="kmp">Key message <b>100%</b></span>
+        </div>
+      </div>
+
+      <div class="article">
+        <div class="rank">4</div>
+        <div>
+          <div class="title">Listen: Analog Devices Cork City Marathon is taking place</div>
+          <div class="outlet-row"><span>Cork's 96 FM</span><span>·</span><span>31 May</span><span>·</span><span>6,132 article reads</span><span class="reach-tag regional">Regional · Radio</span></div>
+        </div>
+        <div class="metrics">
+          ~100K/mo site
+          <span class="kmp">Key message <b>n/a</b></span>
+        </div>
+      </div>
+
+      <div class="article">
+        <div class="rank">5</div>
+        <div>
+          <div class="title">Cork City Marathon to honour memory of Ellen Cassidy with series of tributes</div>
+          <div class="outlet-row"><span>Cork Safety Alerts</span><span>·</span><span>31 May</span><span>·</span><span>readership unavailable</span><span class="reach-tag regional">Regional · Online</span></div>
+        </div>
+        <div class="metrics">
+          ~50K/mo site
+          <span class="kmp">Key message <b>n/a</b></span>
+        </div>
+      </div>
+
+      <div class="article">
+        <div class="rank">6</div>
+        <div>
+          <div class="title">Over 12,000 runners take over Cork City as marathon underway</div>
+          <div class="outlet-row"><span>Irish Examiner</span><span>·</span><span>31 May</span><span>·</span><span>readership unavailable</span><span class="reach-tag national">National · Online</span></div>
+        </div>
+        <div class="metrics">
+          ~252K/mo site
+          <span class="kmp">Key message <b>n/a</b></span>
+        </div>
+      </div>
+
+      <div class="article">
+        <div class="rank">7</div>
+        <div>
+          <div class="title">Cork City Marathon results: Over 12,300 runners race to the finish</div>
+          <div class="outlet-row"><span>Cork Beo</span><span>·</span><span>31 May</span><span>·</span><span>37,864 article reads</span><span class="reach-tag regional">Regional · Online</span></div>
+        </div>
+        <div class="metrics">
+          ~800K/mo site
+          <span class="kmp">Key message <b>93%</b></span>
+        </div>
+      </div>
+
+      <div class="article">
+        <div class="rank">8</div>
+        <div>
+          <div class="title">Stephen McAuley and Melissah Gibson claim Cork City Marathon wins</div>
+          <div class="outlet-row"><span>Irish Examiner</span><span>·</span><span>31 May</span><span>·</span><span>readership unavailable</span><span class="reach-tag national">National · Online</span></div>
+        </div>
+        <div class="metrics">
+          ~252K/mo site
+          <span class="kmp">Key message <b>n/a</b></span>
+        </div>
+      </div>
+
+      <div class="article">
+        <div class="rank">9</div>
+        <div>
+          <div class="title">Cork turns yellow and winners of the 2026 Analog Devices Cork City Marathon</div>
+          <div class="outlet-row"><span>Cork City Council</span><span>·</span><span>31 May</span><span>·</span><span>48,103 article reads</span><span class="reach-tag regional">Regional · Online</span></div>
+        </div>
+        <div class="metrics">
+          ~200K/mo site
+          <span class="kmp">Key message <b>100%</b></span>
+        </div>
+      </div>
+
+      <div class="article">
+        <div class="rank">10</div>
+        <div>
+          <div class="title">Parents of woman who died shortly after last year's Cork City Marathon complete event in her memory</div>
+          <div class="outlet-row"><span>MSN</span><span>·</span><span>31 May</span><span>·</span><span>readership unavailable</span><span class="reach-tag international">International · Online (Agg.)</span></div>
+        </div>
+        <div class="metrics">
+          n/a site
+          <span class="kmp">Key message <b>35%</b></span>
+        </div>
+      </div>
+
+      <div class="article">
+        <div class="rank">11</div>
+        <div>
+          <div class="title">Parents of woman who died shortly after last year's Cork City Marathon complete event in her memory</div>
+          <div class="outlet-row"><span>TheJournal.ie</span><span>·</span><span>31 May</span><span>·</span><span>96,677 article reads</span><span class="reach-tag national">National · Online</span></div>
+        </div>
+        <div class="metrics">
+          ~239K/mo site
+          <span class="kmp">Key message <b>n/a</b></span>
+        </div>
+      </div>
+
+      <div class="article">
+        <div class="rank">12</div>
+        <div>
+          <div class="title">Cork City Marathon results as over 12,000 runners race across Leeside</div>
+          <div class="outlet-row"><span>MSN</span><span>·</span><span>31 May</span><span>·</span><span>readership unavailable</span><span class="reach-tag international">International · Online (Agg.)</span></div>
+        </div>
+        <div class="metrics">
+          n/a site
+          <span class="kmp">Key message <b>92%</b></span>
+        </div>
+      </div>
+
+      <div class="article">
+        <div class="rank">13</div>
+        <div>
+          <div class="title">Parents of woman who died after Cork City Marathon complete event in her honour</div>
+          <div class="outlet-row"><span>Waterford News &amp; Star</span><span>·</span><span>1 Jun</span><span>·</span><span>2,796 article reads</span><span class="reach-tag regional">Regional · Online</span></div>
+        </div>
+        <div class="metrics">
+          ~80K/mo site
+          <span class="kmp">Key message <b>n/a</b></span>
+        </div>
+      </div>
+
+      <div class="article">
+        <div class="rank">14</div>
+        <div>
+          <div class="title">Listen: Analog Devices Cork City Marathon is taking place</div>
+          <div class="outlet-row"><span>C103</span><span>·</span><span>1 Jun</span><span>·</span><span>774 article reads</span><span class="reach-tag regional">Regional · Radio</span></div>
+        </div>
+        <div class="metrics">
+          ~120K/mo site
+          <span class="kmp">Key message <b>100%</b></span>
+        </div>
+      </div>
+
+      <div class="article">
+        <div class="rank">15</div>
+        <div>
+          <div class="title">Cork City Marathon cements its place as one of Cork's flagship annual events</div>
+          <div class="outlet-row"><span>The Irish Independent</span><span>·</span><span>3 Jun</span><span>·</span><span>2,753 article reads</span><span class="reach-tag national">National · Online</span></div>
+        </div>
+        <div class="metrics">
+          ~600K/mo site
+          <span class="kmp">Key message <b>90%</b></span>
+        </div>
+      </div>
+
+      <div class="article">
+        <div class="rank">16</div>
+        <div>
+          <div class="title">Record participation as Melissah Gibson and Stephen McAuley win the 2026 Analog Devices Cork City Marathon</div>
+          <div class="outlet-row"><span>The Avondhu</span><span>·</span><span>4 Jun</span><span>·</span><span>6,969 article reads</span><span class="reach-tag regional">Regional · Online</span></div>
+        </div>
+        <div class="metrics">
+          ~30K/mo site
+          <span class="kmp">Key message <b>84%</b></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <h2>Coverage velocity</h2>
+      <div class="note">New coverage pieces per time window</div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-wrap">
+        <canvas id="velocityChart" role="img" aria-label="Bar chart of new coverage pieces per time window after release: 9 within 3 hours, 3 at 12 hours, 1 at 1 day, 1 at 2 days, 1 at 4 days, 1 at 5 days."></canvas>
+      </div>
+      <div class="insight">
+        <div class="lead"><span>⚡</span><span><b>56% of coverage landed within the first 3 hours, 75% within 12 hours.</b></span></div>
+        <ul>
+          <li>Exceptionally strong same-day response, driven by Cork regional media</li>
+          <li>Story had immediate news value, with race results generating rapid publication</li>
+          <li>88% of all coverage was secured within 2 days of distribution</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <h2>List reporting</h2>
+      <div class="note">10 lists used · 298 contacts delivered</div>
+    </div>
+    <div class="funnel">
+      <div class="funnel-row">
+        <div class="funnel-label">Delivered contacts</div>
+        <div class="funnel-track"><div class="funnel-fill" style="width:100%"></div></div>
+        <div>
+          <div class="funnel-value">298</div>
+        </div>
+      </div>
+      <div class="funnel-row">
+        <div class="funnel-label">Opened the release</div>
+        <div class="funnel-track"><div class="funnel-fill" style="width:28%"></div></div>
+        <div>
+          <div class="funnel-value">82</div>
+          <div class="funnel-sub">28% of delivered</div>
+        </div>
+      </div>
+      <div class="funnel-row">
+        <div class="funnel-label">Direct + indirect coverage</div>
+        <div class="funnel-track"><div class="funnel-fill" style="width:20%"></div></div>
+        <div>
+          <div class="funnel-value">16</div>
+          <div class="funnel-sub">100% of opens converted</div>
+        </div>
+      </div>
+    </div>
+    <div class="outside-note"><b>5 of 82</b> opens converted to direct coverage (contact's own byline), <b>11 of 82</b> to indirect coverage (outlet published without the targeted contact's byline) — every contact who opened the release was tied to a published piece. <b>0%</b> of coverage came from outside the lists used.</div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <h2>Lists used</h2>
+      <div class="note">All 10 lists</div>
+    </div>
+    <table class="lists">
+      <tr><th>List</th><th>Last updated</th><th>Created by</th><th>Contacts</th><th>Covered</th><th>Outlets</th><th>Covered</th></tr>
+      <tr><td>Cork</td><td>15 Dec 25</td><td>cphillips</td><td>185</td><td><span class="pill">4</span></td><td>45</td><td><span class="pill">7</span></td></tr>
+      <tr><td>National News Desk Print</td><td>28 Apr 26</td><td>r.kivlehan</td><td>57</td><td><span class="pill zero">0</span></td><td>37</td><td><span class="pill">3</span></td></tr>
+      <tr><td>National TV News</td><td>29 Jun 26</td><td>r.kivlehan</td><td>53</td><td><span class="pill zero">0</span></td><td>6</td><td><span class="pill zero">0</span></td></tr>
+      <tr><td>Digital Desks</td><td>18 Feb 26</td><td>r.kivlehan</td><td>51</td><td><span class="pill zero">0</span></td><td>22</td><td><span class="pill">3</span></td></tr>
+      <tr><td>National Picture Desks</td><td>7 Jan 26</td><td>cphillips</td><td>39</td><td><span class="pill zero">0</span></td><td>28</td><td><span class="pill">3</span></td></tr>
+      <tr><td>National Radio News Desks</td><td>18 May 26</td><td>cphillips</td><td>29</td><td><span class="pill zero">0</span></td><td>16</td><td><span class="pill zero">0</span></td></tr>
+      <tr><td>National Digital Newsdesks</td><td>18 Feb 26</td><td>cphillips</td><td>28</td><td><span class="pill zero">0</span></td><td>14</td><td><span class="pill">3</span></td></tr>
+      <tr><td>Southern Correspondent</td><td>16 Jun 26</td><td>r.kivlehan</td><td>12</td><td><span class="pill">1</span></td><td>7</td><td><span class="pill">1</span></td></tr>
+      <tr><td>Cork - Red FM</td><td>12 May 26</td><td>cphillips</td><td>11</td><td><span class="pill zero">0</span></td><td>1</td><td><span class="pill zero">0</span></td></tr>
+      <tr><td>Multimedia Journalists</td><td>28 Jan 26</td><td>cphillips</td><td>8</td><td><span class="pill zero">0</span></td><td>7</td><td><span class="pill">1</span></td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <h2>Most common keywords</h2>
+      <div class="note">By total mentions across coverage</div>
+    </div>
+    <table class="keywords">
+      <tr><th>Keyword</th><th>Mentions</th><th>Prevalence</th><th>Avg / article</th><th>Headline appearances</th></tr>
+      <tr><td>Cork City Marathon</td><td>78</td><td>100% (16/16)</td><td>4.9</td><td>14</td></tr>
+      <tr><td>Marathon</td><td>38</td><td>100% (16/16)</td><td>2.4</td><td>14</td></tr>
+      <tr><td>Stephen McAuley</td><td>26</td><td>69% (11/16)</td><td>1.6</td><td>2</td></tr>
+      <tr><td>Melissah Gibson</td><td>25</td><td>69% (11/16)</td><td>1.6</td><td>2</td></tr>
+      <tr><td>Half Marathon</td><td>19</td><td>63% (10/16)</td><td>1.2</td><td>0</td></tr>
+      <tr><td>Ellen Cassidy</td><td>22</td><td>56% (9/16)</td><td>1.4</td><td>1</td></tr>
+      <tr><td>National Championship</td><td>14</td><td>50% (8/16)</td><td>0.9</td><td>0</td></tr>
+      <tr><td>Ryan Creech</td><td>12</td><td>44% (7/16)</td><td>0.8</td><td>0</td></tr>
+      <tr><td>Grand Parade</td><td>9</td><td>38% (6/16)</td><td>0.6</td><td>0</td></tr>
+      <tr><td>Heather Murphy</td><td>8</td><td>31% (5/16)</td><td>0.5</td><td>0</td></tr>
+    </table>
+  </div>
+
+  <footer>
+    <span>Generated from MediaHQ press release tracking</span>
+    <span>Cork City Marathon 2026 release · 31 May – 7 Jun 2026</span>
+  </footer>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+new Chart(document.getElementById('velocityChart'), {
+  type: 'bar',
+  data: {
+    labels: ['3h','6h','12h','1d','2d','3d','4d','5d','6d','7d'],
+    datasets: [{
+      label: 'New coverage',
+      data: [9,0,3,1,1,0,1,1,0,0],
+      backgroundColor: '#4F46E5',
+      borderRadius: 5,
+      maxBarThickness: 36
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ctx.parsed.y + ' new piece' + (ctx.parsed.y === 1 ? '' : 's') } }
+    },
+    scales: {
+      y: { min: 0, ticks: { stepSize: 1, color: '#94A3B8', font:{family:'Inter',size:11} }, grid: { color: '#EEF1F5' }, title: { display: true, text: 'New coverage pieces', color: '#94A3B8', font:{family:'Inter',size:11} } },
+      x: { ticks: { color: '#94A3B8', font:{family:'Inter',size:11} }, grid: { display: false } }
+    }
+  }
+});
+</script>
+
+</body>
+</html>
